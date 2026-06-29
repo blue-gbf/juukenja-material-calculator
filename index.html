@@ -1056,7 +1056,10 @@ function calc(name){
     if(val > 0){
       const farm = farmMap[name]?.[k];
       let detail = "";
-      const id = "farm_" + k.replace(/[^a-zA-Z0-9]/g, '_');
+      const id = "farm_" + k
+        .replace(/[^a-zA-Z0-9\u4e00-\u9fff]/g, '_')  // 日本語も許可
+        .replace(/_+/g, '_')
+        .replace(/^_|_$/g, '');
 
       if(farm){
         detail = `<b>おすすめ周回</b><br>`;
