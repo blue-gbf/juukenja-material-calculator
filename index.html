@@ -1050,15 +1050,16 @@ function calc(name){
   ];
 
   let result = [];
+  let counter = 0;   // ← ここ追加！
 
   for(let k of needKeys){
     let val = need[k];
     val -= owned[k] || 0;
 
-        if(val > 0){
+    if(val > 0){
       const farm = farmMap[name]?.[k];
       let detail = "";
-      const id = "farm_" + counter++;   // 連番にする（確実）
+      const id = "farm_" + counter++;
 
       if(farm){
         detail = `<b>おすすめ周回</b><br>`;
@@ -1080,9 +1081,9 @@ function calc(name){
         <li style="margin-bottom:12px;list-style:none;">
           <div onclick="toggleFarm('${id}')" style="display:flex;align-items:center;cursor:pointer;">
             <img 
-  src="images/PNG変換済み/${k}.png" 
-  loading="lazy"
-  style="width:56px;height:32px;margin-right:8px;">
+              src="images/PNG変換済み/${k}.png" 
+              loading="lazy"
+              style="width:56px;height:32px;margin-right:8px;">
             <span>${k} ×${val}</span>
           </div>
           <div id="${id}" style="display:none;margin-left:64px;margin-top:6px;padding:8px;background:#f5f5f5;border-radius:6px;">
@@ -1091,6 +1092,7 @@ function calc(name){
         </li>
       `);
     }
+  }
 
   document.getElementById("result").innerHTML =
     result.length ? `<ul>${result.join("")}</ul>` : "不足なし";
